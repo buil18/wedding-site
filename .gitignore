@@ -1,0 +1,8 @@
+# Bản sao lưu cục bộ (có thông tin cá nhân), không đưa lên GitHub
+backup/
+
+# Cài đặt riêng trên máy
+.claude/settings.local.json
+Thumbs.db
+.DS_Store
+node_modules/

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSVP | Claire &amp; Graham</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Cormorant:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/rsvp.css">
+</head>
+<body data-page="rsvp">
+<main>
+
+  <!-- 1. Lời mời trả lời + biểu mẫu -->
+  <section class="sec" style="--sh:1474;--bgc:var(--blue-soft)">
+    <p class="el t t-script nowrap" style="--x:408;--y:115;--w:400;--fs:113.3;--lh:150">Rsvp</p>
+    <p class="el t t-body" style="--x:343;--y:290;--w:531;--fs:18;--lh:29">We can't wait to celebrate with you, and your presence means the world to us! Please kindly let us know if you will be able to celebrate with us by:</p>
+    <p class="el t t-script nowrap" style="--x:408;--y:401;--w:400;--fs:40;--ls:2;--lh:50">March 01, 2030</p>
+
+    <form class="el rsvp-card" id="rsvp-form" style="--x:305;--y:498;--w:608" novalidate>
+      <div class="field">
+        <label class="f-label" for="rsvp-name">Your Full Name(s):*</label>
+        <input class="f-input" id="rsvp-name" name="name" type="text" autocomplete="name" required>
+      </div>
+
+      <fieldset class="field">
+        <legend class="f-label">Will you be attending our wedding?*</legend>
+        <label class="f-option"><input type="radio" name="attending" value="yes" required><span>Yes, I can't wait</span></label>
+        <label class="f-option"><input type="radio" name="attending" value="no"><span>Sadly, I can't make it</span></label>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="f-label">Choice of entrée*</legend>
+        <label class="f-option"><input type="radio" name="entree" value="Meat" required><span>Meat</span></label>
+        <label class="f-option"><input type="radio" name="entree" value="Seafood"><span>Seafood</span></label>
+        <label class="f-option"><input type="radio" name="entree" value="Vegetarian"><span>Vegetarian</span></label>
+      </fieldset>
+
+      <div class="field">
+        <label class="f-label" for="rsvp-email">Enter your email*</label>
+        <input class="f-input" id="rsvp-email" name="email" type="email" autocomplete="email" required>
+      </div>
+
+      <button class="f-submit" type="submit">SUBMIT</button>
+      <p class="f-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <!-- 2. Đếm ngược trên nền sọc -->
+  <section class="sec" style="--sh:336">
+    <img class="bg" data-img="8cb9461bbd16527777afb0c23cb966be.png" alt="" style="--py:25%">
+    <div class="el" style="--x:189;--y:0;--w:838;--h:335" data-countdown="var(--blue)"></div>
+  </section>
+
+  <!-- 3. FAQ (dùng chung, nội dung trong assets/js/site.js) -->
+  <div data-faq></div>
+
+  <!-- 4. Chân trang -->
+  <div data-footer></div>
+
+</main>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/rsvp.js"></script>
+</body>
+</html>

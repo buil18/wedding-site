@@ -1,0 +1,63 @@
+/* =========================================================
+   envelope.css: hiệu ứng phong bì ở trang Home
+   ========================================================= */
+
+.home {
+  height: max(calc(852 * var(--u)), calc(100svh - var(--header-h)));
+}
+.home .stage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: calc(852 * var(--u));
+  transform: translateY(-50%);
+}
+
+.envelope-hit { cursor: pointer; }
+
+.envelope-part {
+  transition: transform .9s cubic-bezier(.2, .7, .2, 1), opacity .6s ease;
+}
+
+/* Tem: nhấc nhẹ khi rê chuột (bản gốc có transform .3s) */
+.stamp { transition: transform .3s ease; }
+.stamp:hover { transform: translateY(calc(-4 * var(--u))) rotate(-3deg); }
+
+/* Tem giữ chỗ (ảnh gốc là ảnh tạo động, không lấy được) */
+.stamp-ph {
+  border: calc(3 * var(--u)) dotted #fff;
+  outline: calc(1 * var(--u)) solid rgba(0, 0, 0, .06);
+  box-shadow: 0 calc(1 * var(--u)) calc(3 * var(--u)) rgba(0, 0, 0, .15);
+}
+
+/* Chữ TAP TO OPEN nhấp nháy nhẹ */
+.tap {
+  text-shadow: 0 calc(.8 * var(--u)) calc(3.4 * var(--u)) rgba(0, 0, 0, .33);
+  animation: tap-pulse 2.4s ease-in-out infinite;
+}
+@keyframes tap-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
+
+/* Khi mở: phong bì nhô lên rồi trang mờ dần sang trắng */
+.home.is-opening .envelope-part {
+  transform: translateY(calc(-28 * var(--u))) scale(1.06);
+}
+.home.is-opening .tap { animation: none; opacity: 0; }
+
+.home .fade-out {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s ease .45s;
+}
+.home.is-opening .fade-out { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tap { animation: none; }
+  .envelope-part, .home .fade-out { transition: none; }
+}

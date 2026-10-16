@@ -1,0 +1,242 @@
+/* =========================================================
+   base.css: màu, font, khung co giãn, menu, chân trang, FAQ
+   ---------------------------------------------------------
+   Hệ toạ độ: mọi phần tử đặt theo toạ độ đo ở bản gốc
+   (màn rộng 1232px, khung nội dung rộng 1217px, tâm 608.5).
+   Đơn vị --u = 1px ở màn rộng, tự thu nhỏ khi màn < 920px
+   (giống cách bản gốc Canva co lại trên điện thoại).
+   ========================================================= */
+
+:root {
+  /* Màu */
+  --blue: #7facdc;          /* xanh bụi, chữ chính */
+  --blue-text: #7da9ce;     /* đoạn văn ở Welcome */
+  --blue-deep: #3f82ca;     /* RETURN TO INVITE */
+  --blue-soft: #e6f1fe;     /* nền xanh nhạt (RSVP) */
+  --butter: #fef5c7;        /* vàng bơ */
+  --nav: #304254;           /* chữ menu */
+  --white: #ffffff;
+
+  /* Font (theo bảng font đã chốt) */
+  --f-script: "Alex Brush", "Great Vibes", cursive;   /* tên, tiêu đề thư pháp */
+  --f-label: "Montserrat", "Helvetica Neue", Arial, sans-serif; /* nhãn hoa giãn chữ */
+  --f-num: "Cormorant", "Cormorant Garamond", Georgia, serif;   /* ngày, giờ, số */
+  --f-body: "Noto Serif", Georgia, serif;             /* đoạn văn, nút, ô nhập */
+
+  /* Đơn vị co giãn */
+  --u: min(1px, calc(100vw / 920));
+  --header-h: 48px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--white);
+  color: var(--blue);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: none; }
+a { color: inherit; text-decoration: none; }
+
+/* ---------- Khung section + phần tử đặt toạ độ ---------- */
+
+.sec {
+  position: relative;
+  height: calc(var(--sh) * var(--u));
+  overflow: hidden;
+  background: var(--bgc, transparent);
+}
+
+/* Ảnh nền phủ kín section. --py: vị trí dọc của ảnh (0% trên, 100% dưới) */
+.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% var(--py, 50%);
+  pointer-events: none;
+}
+
+/* Phần tử đặt theo toạ độ gốc: --x, --y (góc trên trái), --w, --h */
+.el {
+  position: absolute;
+  left: calc(50% + (var(--x) - 608.5) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  margin: 0;
+}
+img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
+.el.deco { pointer-events: none; }
+.el.oval { border-radius: 50%; }
+
+/* Khung cắt ảnh (giống Canva): khung .el.box.crop, ảnh bên trong đặt theo --ix --iy --iw --ih */
+.crop { overflow: hidden; pointer-events: none; }
+.crop > img {
+  position: absolute;
+  left: calc(var(--ix, 0) * var(--u));
+  top: calc(var(--iy, 0) * var(--u));
+  width: calc(var(--iw) * var(--u));
+  height: calc(var(--ih) * var(--u));
+  object-fit: cover;
+}
+.bg, .crop > img, img.el { opacity: var(--op, 1); }
+.fx { transform: scaleX(-1); }
+.r180 { transform: rotate(180deg); }
+.r-90 { transform: rotate(-90deg); }
+
+/* ---------- Kiểu chữ ---------- */
+.t {
+  --lh: calc(var(--fs) * 1.3);
+  font-size: calc(var(--fs) * var(--u));
+  line-height: calc(var(--lh) * var(--u));
+  letter-spacing: calc(var(--ls, 0) * var(--u));
+  text-align: center;
+  font-weight: 400;
+  color: var(--c, var(--blue));
+}
+.t-script { font-family: var(--f-script); }
+.t-label  { font-family: var(--f-label); text-transform: uppercase; }
+.t-num    { font-family: var(--f-num); font-variant-numeric: lining-nums; }
+.t-body   { font-family: var(--f-body); }
+.t-up     { text-transform: uppercase; }
+.t-i      { font-style: italic; }
+.t-white  { --c: var(--white); }
+.t-left   { text-align: left; }
+.nowrap   { white-space: nowrap; }
+
+/* Nút dạng chữ (CLICK HERE…) */
+.btn-text { cursor: pointer; transition: opacity .25s ease, transform .25s ease; }
+.btn-text:hover { opacity: .7; }
+
+/* Nút viền bo tròn (RSVP HERE) */
+.btn-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: calc(1.5 * var(--u)) solid currentColor;
+  border-radius: 999px;
+  transition: background-color .25s ease;
+}
+.btn-pill:hover { background: rgba(255, 255, 255, .18); }
+
+/* Ô giữ chỗ cho ảnh chưa có (tem, mã QR) */
+.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: calc(2 * var(--u)) dashed var(--blue);
+  background: rgba(255, 255, 255, .7);
+  color: var(--blue);
+  font-family: var(--f-label);
+  font-size: calc(11 * var(--u));
+  letter-spacing: calc(1 * var(--u));
+}
+
+/* ---------- Menu trên cùng ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-h);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 16px;
+}
+.site-nav { display: flex; gap: 32px; }
+.site-nav a {
+  font-family: var(--f-body);
+  font-size: 15px;
+  color: var(--nav);
+  white-space: nowrap;
+}
+.site-nav a:hover { opacity: .65; }
+.site-nav a.is-active { font-weight: 700; }
+
+.nav-toggle {
+  display: none;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: var(--nav);
+  cursor: pointer;
+}
+.nav-toggle svg { width: 24px; height: 24px; }
+
+@media (max-width: 767px) {
+  .nav-toggle { display: block; }
+  .site-nav {
+    position: absolute;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--white);
+    box-shadow: 0 8px 16px rgba(48, 66, 84, .08);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+  .site-nav a { padding: 14px 24px; border-top: 1px solid #eef2f6; }
+  .site-header.is-open .site-nav { max-height: 420px; }
+}
+
+/* ---------- Chân trang (ảnh + monogram + tên) ---------- */
+.return-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(623 * var(--u));
+  height: calc(61 * var(--u));
+  background: var(--white);
+}
+
+.site-credit {
+  padding: 14px 16px;
+  text-align: center;
+  font-family: var(--f-label);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--nav);
+  background: var(--white);
+}
+
+/* ---------- Đếm ngược ---------- */
+.countdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(70 * var(--u));
+  height: calc(var(--h) * var(--u));
+  color: var(--c, var(--white));
+}
+.countdown .cd-item { text-align: center; min-width: calc(110 * var(--u)); }
+.countdown .cd-num {
+  display: block;
+  font-family: var(--f-num);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-weight: 600;
+  font-size: calc(64 * var(--u));
+  line-height: 1;
+}
+.countdown .cd-label {
+  display: block;
+  margin-top: calc(6 * var(--u));
+  font-family: var(--f-label);
+  font-weight: 500;
+  font-size: calc(12 * var(--u));
+  letter-spacing: calc(3 * var(--u));
+  text-transform: uppercase;
+}
