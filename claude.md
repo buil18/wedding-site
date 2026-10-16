@@ -197,7 +197,9 @@ Biểu mẫu:
 
 ## 11. Quyết định đã chốt (2026-10-16), ưu tiên hơn các mục trên
 - **Bỏ hẳn** trang Travel & Stay và Registry, bỏ logo cửa hàng, bỏ khối Gift Registry ở Welcome. Còn 6 trang.
-- Chạy cục bộ (VS Code Live Server hoặc `node tools/serve.js`), **chưa triển khai GitHub**.
+- Chạy cục bộ (VS Code Live Server hoặc `node tools/serve.js`). Mã nguồn ở kho riêng tư `buil18/wedding-site` (nhánh `main`); **chưa bật GitHub Pages**.
+- Ngày đếm ngược (`config.js` → `weddingDate`): `2026-11-14T09:00:00`, ngày cưới thật, giữ nguyên.
+- `backup/` chỉ để trên máy (có thông tin cá nhân), đã loại khỏi git.
 - Ảnh: dùng link trực tiếp tới ảnh gốc (`config.js` → `imgBase`), không lưu bản sao; thay sau bằng `imgOverride`.
 - Font (thay cho mục 3): script = Alex Brush (dự phòng Great Vibes); nhãn hoa giãn chữ / tiêu đề mục / thứ-tháng / tên buổi lễ / nhãn đếm ngược = Montserrat; ngày, giờ, số = Cormorant (số đứng thẳng); đoạn văn, địa chỉ, ô nhập, nút = Noto Serif.
 - Invitation: "click here" dưới RSVP → /rsvp; "click here" dưới The Details → /welcome. RETURN TO INVITE → /invitation.
