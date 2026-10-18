@@ -56,7 +56,7 @@ window.SITE_CONFIG = {
   //  youtubeId: dán ID (11 ký tự sau "v=" trong link YouTube) hoặc cả link. Để "" nếu dùng file.
   //  file: nhạc đặt trong thư mục site/music/ (dùng khi không có youtubeId, hoặc khi YouTube không phát được).
   music: {
-    youtubeId: "Y5VoCfbB6As",
+    youtubeId: "hTqU8ncU9DA",
     file: "music/song.mp3",
     volume: 0.6, // 0 → 1
   },
