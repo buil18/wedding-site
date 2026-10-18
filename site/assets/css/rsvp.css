@@ -3,6 +3,7 @@
    ========================================================= */
 
 .rsvp-card {
+  min-height: calc(945 * var(--u));
   padding: calc(34 * var(--u)) calc(30 * var(--u));
   background: #fff;
   display: flex;
@@ -47,6 +48,8 @@
   box-shadow: 0 0 0 calc(3 * var(--u)) rgba(127, 172, 220, .25);
 }
 
+.f-text { height: calc(130 * var(--u)); padding: calc(12 * var(--u)) calc(14 * var(--u)); resize: vertical; line-height: 1.5; }
+
 /* Lựa chọn dạng ô bấm (radio ẩn) */
 .f-option {
   position: relative;
@@ -90,12 +93,6 @@
 .f-status.is-error { color: #c0605a; }
 .field.is-invalid .f-label { color: #c0605a; }
 
-/* Chọn số người: 5 ô ngang bằng nhau */
-.rsvp-card .field.is-off { opacity: .6; pointer-events: none; transition: opacity .2s ease; }
-.f-hint { font-size: .85em; opacity: .8; }
-.f-count { display: flex; gap: calc(10 * var(--u)); }
-.f-count .f-option { flex: 1; justify-content: center; padding: 0; font-size: calc(20 * var(--u)); }
-
 /* Ô bẫy thư rác: người thật không thấy */
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
@@ -117,9 +114,8 @@
   .rsvp-card .field { gap: 10px; }
   .f-label { font-size: 15px; }
   .f-input { height: 48px; padding: 0 14px; font-size: 16px; border-radius: 10px; }
+  .f-text { height: 120px; padding: 12px 14px; }
   .f-option { height: 52px; padding: 0 16px; font-size: 15px; border-radius: 10px; }
   .f-submit { height: 52px; font-size: 15px; letter-spacing: 3px; }
   .f-status { margin: -10px 0 0; font-size: 14px; }
-  .f-count { gap: 8px; }
-  .f-count .f-option { font-size: 18px; }
 }

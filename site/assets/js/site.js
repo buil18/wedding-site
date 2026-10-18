@@ -103,12 +103,13 @@
 
   function footerHTML() {
     return `
-      <section class="sec site-footer" style="--sh:684;--bgc:#757440">
+      <section class="sec site-footer" data-wide style="--sh:684;--bgc:#757440">
         <img class="bg" data-img="own-footer-bg.jpg" alt="" style="--py:100%;--op:1">
         ${monogramHTML("t-white")}
-        ${namesHTML()}
+        ${namesHTML().replace(/<p class="el t t-script t-white nowrap"/g, '<p class="el t t-script t-white nowrap fn-d"').replace('<p class="el t t-num t-white nowrap"', '<p class="el t t-num t-white nowrap fdate"')}
+        <p class="el t t-script t-white nowrap fn-m" style="--x:108.5;--y:250;--w:1000;--fs:76;--lh:100">Tuyet Nhung &amp; Tien Loi</p>
         <div class="return-band"></div>
-        <a class="el t t-body btn-text nowrap" data-link="invitation"
+        <a class="el t t-body btn-text nowrap fret" data-link="invitation"
            style="--x:380;--y:641;--w:458;--fs:19;--ls:2.13;--lh:24;--c:var(--blue-deep)">RETURN TO INVITE</a>
       </section>`;
   }

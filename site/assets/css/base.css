@@ -226,6 +226,7 @@ img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
 }
 
 /* ---------- Chân trang (ảnh + monogram + tên) ---------- */
+.fn-m { display: none; }
 .return-band {
   position: absolute;
   left: 0;
@@ -339,6 +340,14 @@ main.pjax-out, main.pjax-in { opacity: 0; }
   :root { --u: calc(100vw / 640); }
   /* Khối trải rộng hơn 640px (ảnh bìa, cột ảnh, thiệp) giữ nguyên cách thu cả khung */
   .sec[data-wide] { --u: calc(100vw / 920); }
+
+  /* Chân trang: thu cả bố cục bản web (ảnh rộng ~1385px) theo bề ngang màn hình => cùng bố cục ảnh/chữ như bản web */
+  .sec.site-footer[data-wide] { --u: calc(100vw / 1385); --sh: 492 !important; }
+  .site-footer .fn-d { display: none; }
+  .site-footer .fn-m { display: block; }
+  .site-footer .fdate { --y: 372 !important; }
+  .site-footer .return-band { top: calc(432 * var(--u)); }
+  .site-footer .fret { --y: 452 !important; }
 
   .t.t-body:not(.nowrap),
   .t.t-label:not(.nowrap) {

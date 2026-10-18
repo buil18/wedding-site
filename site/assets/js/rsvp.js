@@ -35,7 +35,7 @@
   function validate() {
     let ok = true;
     form.querySelectorAll(".field").forEach((field) => {
-      if (field.classList.contains("is-off")) return;
+      if (field.classList.contains("is-off") || field.classList.contains("is-optional")) return;
       const inputs = [...field.querySelectorAll("input")];
       const valid = inputs[0].type === "radio" ? inputs.some((i) => i.checked) : inputs[0].checkValidity();
       field.classList.toggle("is-invalid", !valid);
@@ -70,6 +70,7 @@
         attending: fd.get("attending") || "",
         side: fd.get("side") || "", // "bride" | "groom"
         guests: fd.get("attending") === "yes" ? Number(fd.get("guests") || 0) : 0, // 1-5, báo vắng = 0
+        wishes: String(fd.get("wishes") || "").trim(), // lời chúc (không bắt buộc)
         hp: String(fd.get("hp") || ""),
         submittedAt: new Date().toISOString(),
       };

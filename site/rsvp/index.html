@@ -9,15 +9,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Cormorant:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/rsvp.css">
+  <style>
+    /* Đếm ngược trên điện thoại: gom các số vào giữa, không sát lề */
+    @media (max-width: 767px) { .countdown { gap: calc(26 * var(--u)); } .countdown .cd-item { min-width: calc(80 * var(--u)); } }
+  </style>
 </head>
 <body data-page="rsvp">
 <main>
 
   <!-- 1. Lời mời trả lời + biểu mẫu -->
-  <section class="sec rsvp-sec" data-noreflow style="--sh:1370;--bgc:var(--blue-soft)">
+  <section class="sec rsvp-sec" data-noreflow style="--sh:1540;--bgc:var(--blue-soft)">
     <p class="el t t-script nowrap" style="--x:408;--y:115;--w:400;--fs:113.3;--lh:150">RSVP</p>
     <p class="el t t-body" style="--x:343;--y:290;--w:531;--fs:18;--lh:29">We can't wait to celebrate with you, and your presence means the world to us! Please kindly let us know if you will be able to celebrate with us by:</p>
-    <p class="el t t-num nowrap" style="--x:408;--y:401;--w:400;--fs:36;--ls:3;--lh:50">November 08, 2026</p>
+    <p class="el t t-num nowrap" style="--x:408;--y:401;--w:400;--fs:36;--ls:3;--lh:50">November 14, 2026</p>
 
     <form class="el rsvp-card" id="rsvp-form" style="--x:305;--y:498;--w:608" novalidate>
       <div class="hp" aria-hidden="true"><label>Website<input type="text" name="hp" tabindex="-1" autocomplete="off"></label></div>
@@ -49,6 +53,11 @@
         </div>
       </fieldset>
 
+      <div class="field is-optional">
+        <label class="f-label" for="rsvp-wishes">Leave a blessing or a warm wish for the bride and groom:<span class="f-hint"> (optional)</span></label>
+        <textarea class="f-input f-text" id="rsvp-wishes" name="wishes" rows="4" maxlength="600"></textarea>
+      </div>
+
       <button class="f-submit" type="submit">SUBMIT</button>
       <p class="f-status" role="status" aria-live="polite"></p>
     </form>
@@ -59,9 +68,6 @@
     <img class="bg" data-img="8cb9461bbd16527777afb0c23cb966be.png" alt="" style="--py:25%">
     <div class="el" style="--x:189;--y:0;--w:838;--h:335" data-countdown="var(--blue)"></div>
   </section>
-
-  <!-- 3. FAQ (dùng chung, nội dung trong assets/js/site.js) -->
-  <div data-faq></div>
 
   <!-- 4. Chân trang -->
   <div data-footer></div>

@@ -13,38 +13,57 @@
     .rule { height: 1px; background: var(--blue); opacity: .8; }
     /* Bảng màu dress code */
     .swatch { border-radius: 50%; border: 1px solid var(--blue); }
-    /* Bản đồ */
+    /* Đầu trang: trên điện thoại thu cả khung thiết kế 1232px vào bề rộng màn hình => thấy trọn ảnh, chữ đúng vị trí như bản web */
+    @media (max-width: 767px) {
+      .sec.hero-web { --u: calc(100vw / 1232); }
+      /* Chữ căn giữa khung ảnh */
+      .hero-web .t-script { --y: 239 !important; }
+      .hero-web .t-body { --w: 900 !important; --x: 158.5 !important; --y: 399 !important; font-size: 13px !important; line-height: 1.4 !important; }
+    }
+    /* Đếm ngược: trên điện thoại giữ nguyên tỉ lệ ngang/dọc như bản web (khung thiết kế 1232px thu theo bề rộng màn hình) */
+    @media (max-width: 767px) { .sec.cd-web { --u: calc(100vw / 1232); } .cd-web .countdown { gap: calc(40 * var(--u)); } .cd-web [data-countdown] { transform: scale(1.4); transform-origin: center; --y: 31 !important; } .sec.cd-web { --sh: 398 !important; } .cd-web .bg { inset: auto; left: 50%; top: -95.3vw; width: 130%; max-width: none; height: auto; transform: translateX(-50%); } }
+    /* Bản đồ: khung bầu dục viền xanh, màu bản đồ dịu lại cho hợp tông thiệp */
+    .bal { text-wrap: balance; }
+    .ph-c { display: inline-block; text-wrap: balance; }
+    @media (max-width: 767px) { .bal { text-wrap: balance; padding: 0 6vw; } }
     .map { border: 0; height: calc(var(--h) * var(--u)); }
+    .venue > .map { border: 1.5px solid var(--blue); filter: grayscale(.35) saturate(.85); }
+    @media (max-width: 767px) {
+      .venue > .map { display: block; width: 52vw; max-width: 240px; height: 66vw; max-height: 304px; margin: 24px auto 0; }
+      .venue > .btn-pill { width: 250px; height: 44px; margin: 26px auto 0; font-size: 13px; letter-spacing: 2px; }
+    }
   </style>
 </head>
 <body data-page="details">
 <main>
 
   <!-- 1. Hero -->
-  <section data-wide class="sec" style="--sh:752;--bgc:#757440">
+  <section class="sec hero-web" data-noreflow style="--sh:752;--bgc:#757440">
     <img class="bg" data-img="own-details-hero.jpg" alt="" style="--py:10%;--op:1" loading="eager">
-    <p class="el t t-script t-white nowrap" style="--x:142;--y:182;--w:933;--fs:84;--lh:108">The Weekend Details</p>
-    <p class="el t t-body t-white" style="--x:279;--y:342;--w:660;--fs:22;--lh:34">Everything you need to plan your stay and celebrate with us.</p>
-    <p class="el t t-script t-white nowrap" style="--x:326;--y:439;--w:567;--fs:40;--ls:2;--lh:100">Nhung &amp; Loi</p>
+    <p class="el t t-script t-white nowrap" style="--x:142;--y:279;--w:933;--fs:84;--lh:108">The Weekend Details</p>
+    <p class="el t t-body t-white" style="--x:279;--y:439;--w:660;--fs:22;--lh:34">Everything you need to plan your stay and celebrate with us.</p>
   </section>
 
-  <!-- 2. Friday -->
-  <section class="sec flow-m" data-noreflow style="--sh:667">
-    <div class="el box crop" style="--x:0;--y:0;--w:609;--h:667"><img data-img="own-details-friday.jpg" alt="" style="--py:15%;--iw:609;--ih:667"></div>
-    <p class="el t t-script nowrap" style="--x:636;--y:98;--w:548;--fs:73.3;--lh:73">Saturday</p>
-    <p class="el t t-label nowrap" style="--x:648;--y:202;--w:525;--fs:23;--ls:1.5;--lh:36">Saturday, November 14</p>
-    <p class="el t t-num nowrap" style="--x:761;--y:245;--w:299;--fs:34;--lh:46">10:45 AM</p>
-    
+
+  <!-- 2. You're Invited (chuyển từ trang Welcome) -->
+  <section class="sec" style="--sh:950">
+    <div class="el box crop oval" style="--x:444;--y:182;--w:329;--h:452"><img data-img="own-welcome-oval.jpg" alt="" style="--iw:329;--ih:452"></div>
+
+    <p class="el t t-script nowrap" style="--x:345;--y:74;--w:527;--fs:96;--lh:140">You’re Invited</p>
+    <p class="el t t-body" style="--x:354;--y:664;--w:509;--fs:17;--lh:27;--c:var(--blue-text)">We’re so glad you’re here. What began as a simple friendship grew into a love that has brought us to this beautiful moment.</p>
+    <p class="el t t-body" style="--x:354;--y:768;--w:509;--fs:17;--lh:27;--c:var(--blue-text)">Here you’ll find all the details about our day, the celebration, the place, and the people who mean the most to us.</p>
+    <p class="el t t-body" style="--x:354;--y:845;--w:509;--fs:17;--lh:27;--c:var(--blue-text)">We can’t wait to share our story and create new memories with you.</p>
   </section>
 
+  
   <!-- 3. The Wedding + Itinerary -->
   <section class="sec" style="--sh:1050">
     <img class="bg" data-img="8cb9461bbd16527777afb0c23cb966be.png" alt="" style="--py:50%">
     <p class="el t t-script" style="--x:334;--y:92;--w:548;--fs:60;--lh:60">The</p>
     <p class="el t t-script" style="--x:334;--y:149;--w:548;--fs:86.7;--lh:86">Wedding</p>
     <p class="el t t-label nowrap" style="--x:306;--y:279;--w:605;--fs:23;--ls:1.5;--lh:36">saturday, november 14</p>
-    <p class="el t t-num nowrap" style="--x:459;--y:316;--w:299;--fs:34;--lh:46">10:45 AM</p>
-    <p class="el t t-body" style="--x:346;--y:414;--w:526;--fs:20;--lh:33">The celebration begins with a Nuptial Mass at the church, followed by the Vu Quy ceremony and a wedding banquet at the bride&rsquo;s family home.</p>
+    <p class="el t t-num nowrap" style="--x:459;--y:316;--w:299;--fs:34;--lh:46">05:00 AM</p>
+    <p class="el t t-body bal" style="--x:346;--y:414;--w:526;--fs:20;--lh:33"><span class="ph-c">The celebration begins with a Nuptial Mass at the church,</span> <span class="ph-c">followed by the Vu Quy ceremony and the wedding banquet at the bride&rsquo;s family home.</span></p>
     <p class="el t t-script" style="--x:334;--y:574;--w:548;--fs:86.7;--lh:86">Itinerary</p>
 
     <div class="el box rule" style="--x:356;--y:702;--w:515;--h:1"></div>
@@ -55,25 +74,44 @@
     <p class="el t t-label t-left nowrap" style="--x:622;--y:795;--w:250;--fs:15;--ls:1;--lh:28">Vu Quy ceremony</p>
     <div class="el box rule" style="--x:356;--y:839;--w:515;--h:1"></div>
     <p class="el t t-num t-left nowrap" style="--x:365;--y:860;--w:191;--fs:26;--ls:.6;--lh:32">10:45 AM</p>
-    <p class="el t t-label t-left nowrap" style="--x:622;--y:863;--w:250;--fs:15;--ls:1;--lh:28">Wedding Reception</p>
+    <p class="el t t-label t-left nowrap" style="--x:622;--y:863;--w:250;--fs:15;--ls:1;--lh:28">Banquet Reception</p>
     <div class="el box rule" style="--x:356;--y:907;--w:515;--h:1"></div>
     <p class="el t t-num t-left nowrap" style="--x:365;--y:928;--w:191;--fs:26;--ls:.6;--lh:32">11:00 AM</p>
-    <p class="el t t-label t-left nowrap" style="--x:622;--y:932;--w:250;--fs:15;--ls:1;--lh:28">Opening Toast & Feast</p>
+    <p class="el t t-label t-left nowrap" style="--x:622;--y:932;--w:250;--fs:15;--ls:1;--lh:28">Opening Toast & Banquet</p>
     <div class="el box rule" style="--x:356;--y:975;--w:515;--h:1"></div>
   </section>
 
-  <!-- 4. The Venue: ảnh + bản đồ -->
-  <section class="sec flow-m" data-noreflow style="--sh:620">
+  <!-- Đếm ngược (giống trang Welcome), đặt ngay trên The Venue -->
+  <section class="sec cd-web" style="--sh:630;--bgc:var(--blue-soft)">
+    <img class="bg" data-img="own-welcome-countdown.jpg" alt="" style="--py:59%;--op:1">
+    <div class="el" style="--x:189;--y:147;--w:838;--h:335" data-countdown="var(--white)"></div>
+  </section>
+
+  <!-- 4. The Venue: địa chỉ + bản đồ dạng bầu dục nhỏ (cùng kiểu ảnh bầu dục của thiệp) + nút mở Google Maps -->
+  <section class="sec flow-m venue" data-noreflow style="--sh:730">
     <p class="el t t-script" style="--x:334;--y:58;--w:548;--fs:86.7;--lh:86">The Venue</p>
-    <div class="el box crop" style="--x:172;--y:248;--w:389;--h:317"><img data-img="own-details-venue.jpg" alt="" style="--iw:389;--ih:317"></div>
-    <p class="el t t-body t-white nowrap" style="--x:199;--y:349;--w:334;--fs:21;--lh:33">Gran Paraiso Gardens</p>
-    <p class="el t t-body t-white nowrap" style="--x:219;--y:414;--w:314;--fs:17;--lh:28">Savannah, Georgia</p>
-    <iframe class="el map" style="--x:623;--y:248;--w:422;--h:317" title="Map"
-            src="https://www.google.com/maps?q=Savannah%2C%20Georgia&amp;output=embed"
+    <p class="el t t-body nowrap" style="--x:308.5;--y:196;--w:600;--fs:21;--lh:33">House No. 26, Street 42</p>
+    <p class="el t t-body nowrap" style="--x:308.5;--y:238;--w:600;--fs:17;--lh:28">Nam Thanh Commune, Lam Dong Province</p>
+    <iframe class="el map oval" style="--x:488.5;--y:300;--w:240;--h:304" title="Map"
+            src="https://www.google.com/maps?q=11.267929,107.532005&amp;z=16&amp;output=embed"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <a class="el box btn-pill t t-body nowrap" href="https://maps.app.goo.gl/J6obT3xjzpESs88p7" target="_blank" rel="noopener"
+       style="--x:468.5;--y:640;--w:280;--h:46;--fs:15;--ls:2">VIEW ON GOOGLE MAPS</a>
   </section>
 
   <!-- 7. Chân trang -->
+  <!-- RSVP (thêm vào trang Details, ngay trên footer) -->
+  <section class="sec" style="--sh:930">
+    <img class="bg" data-img="000125b7dcf9c923fd9f5feafb6a55f3.jpg" alt="" style="--op:.25">
+    <div class="el box crop" style="--x:403;--y:29;--w:408;--h:539"><img data-img="80dd59c95f713a4f2bf5b5e15d20f32a.png" alt="" style="--ix:-105;--iy:-42;--iw:620;--ih:620"></div>
+    <div class="el box crop" style="--x:410;--y:366;--w:400;--h:519"><img data-img="5b1cb344c6d9e0f2ab6c27845fbe2969.png" alt="" style="--ix:-45;--iy:-83;--iw:487;--ih:681"></div>
+    <div class="el box crop" style="--x:558;--y:561;--w:100;--h:100"><img data-img="own-story-2.jpg" alt="" style="--iw:100;--ih:100"></div>
+    <p class="el t t-script nowrap" style="--x:505;--y:476;--w:202;--fs:48;--lh:60">RSVP</p>
+    <p class="el t t-body t-up nowrap" style="--x:493;--y:681;--w:232;--fs:11.5;--ls:2.4;--lh:20">Please kindly reply by<br>November 8, 2026</p>
+    <a class="el t t-body t-up btn-text nowrap" data-link="rsvp" style="--x:484;--y:733;--w:248;--fs:17;--ls:4.2;--lh:33">click here</a>
+    <div class="el box crop" style="--x:573;--y:361;--w:64;--h:59"><img data-img="1a073f3576d77c2576e7863ac387ff4a.png" alt="" style="--iy:-16;--iw:65;--ih:98"></div>
+  </section>
+
   <div data-footer></div>
 
 </main>
