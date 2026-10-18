@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RSVP | Claire &amp; Graham</title>
+  <title>RSVP | Nhung &amp; Loi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Cormorant:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap">
@@ -14,12 +14,13 @@
 <main>
 
   <!-- 1. Lời mời trả lời + biểu mẫu -->
-  <section class="sec" style="--sh:1474;--bgc:var(--blue-soft)">
-    <p class="el t t-script nowrap" style="--x:408;--y:115;--w:400;--fs:113.3;--lh:150">Rsvp</p>
+  <section class="sec rsvp-sec" data-noreflow style="--sh:1370;--bgc:var(--blue-soft)">
+    <p class="el t t-script nowrap" style="--x:408;--y:115;--w:400;--fs:113.3;--lh:150">RSVP</p>
     <p class="el t t-body" style="--x:343;--y:290;--w:531;--fs:18;--lh:29">We can't wait to celebrate with you, and your presence means the world to us! Please kindly let us know if you will be able to celebrate with us by:</p>
-    <p class="el t t-script nowrap" style="--x:408;--y:401;--w:400;--fs:40;--ls:2;--lh:50">March 01, 2030</p>
+    <p class="el t t-num nowrap" style="--x:408;--y:401;--w:400;--fs:36;--ls:3;--lh:50">November 08, 2026</p>
 
     <form class="el rsvp-card" id="rsvp-form" style="--x:305;--y:498;--w:608" novalidate>
+      <div class="hp" aria-hidden="true"><label>Website<input type="text" name="hp" tabindex="-1" autocomplete="off"></label></div>
       <div class="field">
         <label class="f-label" for="rsvp-name">Your Full Name(s):*</label>
         <input class="f-input" id="rsvp-name" name="name" type="text" autocomplete="name" required>
@@ -32,16 +33,21 @@
       </fieldset>
 
       <fieldset class="field">
-        <legend class="f-label">Choice of entrée*</legend>
-        <label class="f-option"><input type="radio" name="entree" value="Meat" required><span>Meat</span></label>
-        <label class="f-option"><input type="radio" name="entree" value="Seafood"><span>Seafood</span></label>
-        <label class="f-option"><input type="radio" name="entree" value="Vegetarian"><span>Vegetarian</span></label>
+        <legend class="f-label">Are you a guest of the bride or the groom?*</legend>
+        <label class="f-option"><input type="radio" name="side" value="bride" required><span>Guest of the Bride</span></label>
+        <label class="f-option"><input type="radio" name="side" value="groom"><span>Guest of the Groom</span></label>
       </fieldset>
 
-      <div class="field">
-        <label class="f-label" for="rsvp-email">Enter your email*</label>
-        <input class="f-input" id="rsvp-email" name="email" type="email" autocomplete="email" required>
-      </div>
+      <fieldset class="field" id="rsvp-guests">
+        <legend class="f-label">How many guests will attend, including you?<span class="f-hint"> (if attending)</span></legend>
+        <div class="f-count">
+          <label class="f-option"><input type="radio" name="guests" value="1"><span>1</span></label>
+          <label class="f-option"><input type="radio" name="guests" value="2"><span>2</span></label>
+          <label class="f-option"><input type="radio" name="guests" value="3"><span>3</span></label>
+          <label class="f-option"><input type="radio" name="guests" value="4"><span>4</span></label>
+          <label class="f-option"><input type="radio" name="guests" value="5"><span>5</span></label>
+        </div>
+      </fieldset>
 
       <button class="f-submit" type="submit">SUBMIT</button>
       <p class="f-status" role="status" aria-live="polite"></p>

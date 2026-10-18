@@ -1,0 +1,12 @@
+{
+  "name": "wedding-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "images": "node tools/optimize-images.js",
+    "images:watch": "node tools/optimize-images.js --watch"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

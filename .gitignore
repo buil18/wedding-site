@@ -6,3 +6,7 @@ backup/
 Thumbs.db
 .DS_Store
 node_modules/
+
+# Ảnh gốc nặng (chỉ để trên máy, công cụ tools/optimize-images.js nén sang site/assets/img/own/)
+images-raw/*
+!images-raw/README.txt

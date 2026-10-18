@@ -7,6 +7,19 @@
    (giống cách bản gốc Canva co lại trên điện thoại).
    ========================================================= */
 
+/* Font thư pháp: Parfumerie Script Pro (font có bản quyền, bạn tự đặt file vào site/assets/fonts/, xem README.txt trong đó).
+   Chưa có file thì tự dùng Alex Brush. */
+@font-face {
+  font-family: "Parfumerie Script Pro";
+  src: local("Parfumerie Script Pro"), local("ParfumerieScriptPro"), local("Parfumerie Script"),
+       url("../fonts/ParfumerieScriptPro.woff2") format("woff2"),
+       url("../fonts/ParfumerieScriptPro.otf") format("opentype"),
+       url("../fonts/ParfumerieScriptPro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Màu */
   --blue: #7facdc;          /* xanh bụi, chữ chính */
@@ -18,7 +31,7 @@
   --white: #ffffff;
 
   /* Font (theo bảng font đã chốt) */
-  --f-script: "Alex Brush", "Great Vibes", cursive;   /* tên, tiêu đề thư pháp */
+  --f-script: "Parfumerie Script Pro", "Alex Brush", "Great Vibes", cursive;   /* tên, tiêu đề thư pháp, logo N/L */
   --f-label: "Montserrat", "Helvetica Neue", Arial, sans-serif; /* nhãn hoa giãn chữ */
   --f-num: "Cormorant", "Cormorant Garamond", Georgia, serif;   /* ngày, giờ, số */
   --f-body: "Noto Serif", Georgia, serif;             /* đoạn văn, nút, ô nhập */
@@ -49,7 +62,7 @@ a { color: inherit; text-decoration: none; }
 
 .sec {
   position: relative;
-  height: calc(var(--sh) * var(--u));
+  height: calc((var(--sh) + var(--dsh, 0)) * var(--u));
   overflow: hidden;
   background: var(--bgc, transparent);
 }
@@ -69,7 +82,7 @@ a { color: inherit; text-decoration: none; }
 .el {
   position: absolute;
   left: calc(50% + (var(--x) - 608.5) * var(--u));
-  top: calc(var(--y) * var(--u));
+  top: calc((var(--y) + var(--dy, 0)) * var(--u));
   width: calc(var(--w) * var(--u));
   margin: 0;
 }
@@ -92,6 +105,16 @@ img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
 .r180 { transform: rotate(180deg); }
 .r-90 { transform: rotate(-90deg); }
 
+/* ---------- Logo chữ N / L trong vòng hoa ----------
+   Vị trí chữ do site.js tự căn theo nét chữ thật (đúng giữa khung, không phụ thuộc font).
+   Muốn xê dịch tay: đổi --mono-dx / --mono-dy (đơn vị thiết kế, + là sang phải / xuống). */
+.mono { position: absolute; left: calc(50% + (var(--x) - 608.5) * var(--u)); top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u)); height: calc(var(--h) * var(--u)); pointer-events: none;
+  --mono-dx: 0; --mono-dy: 0; }
+.mono > span { position: absolute; display: block; white-space: nowrap; opacity: 0; transition: opacity .25s ease;
+  left: calc((var(--lx, 0) + var(--mono-dx)) * var(--u)); top: calc((var(--ly, 0) + var(--mono-dy)) * var(--u)); }
+.mono.is-set > span { opacity: 1; }
+
 /* ---------- Kiểu chữ ---------- */
 .t {
   --lh: calc(var(--fs) * 1.3);
@@ -102,13 +125,22 @@ img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
   font-weight: 400;
   color: var(--c, var(--blue));
 }
-.t-script { font-family: var(--f-script); }
+/* Parfumerie Script Pro nét mảnh và nhỏ hơn Alex Brush cùng cỡ → phóng chữ thư pháp lên một chút + làm đậm nét nhẹ.
+   Chỉnh --script-scale (1 = nguyên cỡ thiết kế) và --script-stroke (0 = không làm đậm) nếu muốn. */
+.t-script {
+  font-family: var(--f-script);
+  --script-scale: 1.25;
+  --script-stroke: .5px;
+  font-size: calc(var(--fs) * var(--u) * var(--script-scale));
+  -webkit-text-stroke: var(--script-stroke) currentColor;
+}
 .t-label  { font-family: var(--f-label); text-transform: uppercase; }
 .t-num    { font-family: var(--f-num); font-variant-numeric: lining-nums; }
 .t-body   { font-family: var(--f-body); }
 .t-up     { text-transform: uppercase; }
 .t-i      { font-style: italic; }
 .t-white  { --c: var(--white); }
+.t-script.t-white { text-shadow: 0 1px 10px rgba(20, 50, 70, .38); } /* nét mảnh của font thư pháp cần bóng nhẹ để đọc được trên ảnh */
 .t-left   { text-align: left; }
 .nowrap   { white-space: nowrap; }
 
@@ -239,4 +271,119 @@ img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
   font-size: calc(12 * var(--u));
   letter-spacing: calc(3 * var(--u));
   text-transform: uppercase;
+}
+
+/* ---------- Chuyển trang mượt (site.js) ---------- */
+main { transition: opacity .22s ease; }
+main.pjax-out, main.pjax-in { opacity: 0; }
+
+/* ---------- Nút nhạc nổi (music.js) ---------- */
+#music-btn {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 70;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid var(--blue);
+  background: rgba(255, 255, 255, .92);
+  color: var(--blue-deep);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(48, 66, 84, .18);
+  transition: transform .2s ease, background-color .2s ease;
+}
+#music-btn:hover { transform: scale(1.06); }
+#music-btn .m-bars { display: none; align-items: flex-end; gap: 3px; height: 18px; }
+#music-btn .m-bars i { width: 3px; height: 100%; background: currentColor; border-radius: 2px; transform-origin: bottom; animation: m-eq 0.9s ease-in-out infinite; }
+#music-btn .m-bars i:nth-child(2) { animation-delay: -.3s; }
+#music-btn .m-bars i:nth-child(3) { animation-delay: -.6s; }
+#music-btn.is-playing .m-note { display: none; }
+#music-btn.is-playing .m-bars { display: flex; }
+#music-btn:not(.is-playing) .m-slash {
+  position: absolute; width: 26px; height: 1.8px; background: currentColor; transform: rotate(-45deg); border-radius: 2px;
+  box-shadow: 0 0 0 1.5px #fff; opacity: .85;
+}
+@keyframes m-eq { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+#music-tip {
+  position: fixed;
+  right: 70px;
+  bottom: 22px;
+  z-index: 70;
+  max-width: min(260px, calc(100vw - 100px));
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--nav);
+  color: #fff;
+  font: 13px/1.4 var(--f-body);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+#music-tip.show { opacity: 1; }
+#yt-holder, iframe#yt-holder { position: fixed; left: -9999px; top: 0; width: 200px; height: 200px; opacity: 0; pointer-events: none; }
+
+/* ---------- FAQ dạng danh sách (chỉ dùng trên điện thoại) ---------- */
+.faq-flow { display: none; }
+
+/* =========================================================
+   ĐIỆN THOẠI (≤ 767px)
+   - Khung thiết kế 1232px được thu theo bề rộng ~640px ở giữa (phần hoa lá hai mép bị cắt bớt),
+     nên chữ lớn gấp ~1,4 lần so với thu cả khung.
+   - Chữ đoạn văn có cỡ tối thiểu; site.js tự đẩy phần bên dưới xuống nếu đoạn văn dài thêm.
+   ========================================================= */
+@media (max-width: 767px) {
+  :root { --u: calc(100vw / 640); }
+  /* Khối trải rộng hơn 640px (ảnh bìa, cột ảnh, thiệp) giữ nguyên cách thu cả khung */
+  .sec[data-wide] { --u: calc(100vw / 920); }
+
+  .t.t-body:not(.nowrap),
+  .t.t-label:not(.nowrap) {
+    font-size: max(calc(var(--fs) * var(--u)), 14px);
+    line-height: max(calc(var(--lh) * var(--u)), 1.6em);
+  }
+  .t.t-body:not(.nowrap).no-bump,
+  .t.t-label:not(.nowrap).no-bump {
+    font-size: calc(var(--fs) * var(--u));
+    line-height: calc(var(--lh) * var(--u));
+  }
+  /* nút chữ dễ chạm hơn */
+  .btn-text, .btn-pill { min-height: 36px; }
+
+  /* FAQ → danh sách */
+  .sec.faq { height: auto; padding: 44px 24px 56px; }
+  .sec.faq > .el { display: none; }
+  .faq-flow { display: block; }
+  .faq-flow h2 { margin: 0 0 24px; text-align: center; font: 400 64px/1.1 var(--f-script); color: var(--blue); }
+  .faq-flow ol { list-style: none; margin: 0; padding: 0; }
+  .faq-flow li { padding: 20px 0; text-align: center; border-top: 1px solid rgba(127, 172, 220, .35); }
+  .faq-flow li:first-child { border-top: 0; }
+  .faq-n { display: block; font: 600 22px/1 var(--f-num); letter-spacing: 3px; color: var(--blue); margin-bottom: 8px; }
+  .faq-flow h3 { margin: 0 0 8px; font: 600 15px/1.45 var(--f-label); letter-spacing: 1px; text-transform: uppercase; color: var(--blue); }
+  .faq-flow p { margin: 0; font: 400 15px/1.65 var(--f-body); color: var(--blue); }
+
+  #music-btn { right: 12px; bottom: 12px; }
+
+  /* Khối hai cột (ảnh + chữ, ảnh + bản đồ) → xếp dọc */
+  .sec.flow-m {
+    height: auto;
+    padding: 0 20px 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .flow-m > .el { position: static; width: auto; max-width: 100%; white-space: normal; }
+  .flow-m > .crop { position: relative; left: 0; top: 0; overflow: hidden; width: calc(100% + 40px); max-width: none; height: 78vw; margin: 0 -20px 22px; }
+  .flow-m > .crop > img { left: 0; top: 0; width: 100%; height: 100%; }
+  .flow-m > .t-script { font-size: 60px; line-height: 1.2; }
+  .flow-m > .t-label { font-size: 15px; line-height: 1.5; letter-spacing: 2px; }
+  .flow-m > .t-num { font-size: 28px; line-height: 1.3; }
+  .flow-m > .t-body { font-size: 16px; line-height: 1.55; }
+  .flow-m > .t-white { --c: var(--blue); }
+  .flow-m > .map { width: calc(100% + 40px); max-width: none; height: 72vw; margin: 18px -20px 0; border: 0; }
+  .flow-m > .t-script:first-child { margin-top: 30px; }
 }

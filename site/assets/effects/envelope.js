@@ -14,13 +14,18 @@
     e.preventDefault();
     if (opening) return;
     opening = true;
-    const target = window.SITE.pageUrl("invitation");
+    const S = window.SITE;
+    const target = S.pageUrl("invitation");
+    // Bấm chạm = thao tác của người dùng → bật nhạc ngay, rồi báo trang sau tự cuộn
+    if (S.music) S.music.start();
+    if (S.autoscroll) S.autoscroll.arm();
+    const leave = () => (S.go ? S.go(target, { instant: true }) : (location.href = target));
     if (reduce) {
-      location.href = target;
+      leave();
       return;
     }
     home.classList.add("is-opening");
-    setTimeout(() => (location.href = target), 1100);
+    setTimeout(leave, 1100);
   }
 
   home.querySelectorAll("[data-open]").forEach((el) => el.addEventListener("click", open));
