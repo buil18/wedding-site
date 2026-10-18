@@ -16,8 +16,6 @@
   const PAGES = [
     { slug: "", label: "Home" },
     { slug: "invitation", label: "Invitation" },
-    { slug: "welcome", label: "Welcome" },
-    { slug: "our-story", label: "Our Story" },
     { slug: "details", label: "Details" },
     { slug: "rsvp", label: "RSVP" },
   ];
@@ -282,8 +280,36 @@
   const hooks = [];
   const PERSIST = /\/assets\/js\/(config|site)\.js(\?|$)/;
 
+  // Cá nhân hóa tên khách: link dạng ...?to=Ten%20Khach. Tên được nhớ trong tab (sessionStorage) để sang trang khác vẫn còn.
+  function readGuest() {
+    try {
+      const q = new URLSearchParams(location.search).get("to");
+      if (q && q.trim()) {
+        const n = q.trim().slice(0, 60);
+        sessionStorage.setItem("guest", n);
+        return n;
+      }
+      return sessionStorage.getItem("guest") || "";
+    } catch (e) {
+      return "";
+    }
+  }
+  window.SiteGuest = readGuest;
+  function applyGuest(scope) {
+    const n = readGuest();
+    (scope || document).querySelectorAll("[data-guest]").forEach((el) => {
+      const slot = el.querySelector(".g-name");
+      if (n && slot) { slot.textContent = n; el.hidden = false; } else { el.hidden = true; }
+    });
+  }
+
   function setupPage(scope) {
     injectPartials(scope);
+    applyGuest(scope);
+    // Làm nổi bật các nút chữ "CLICK HERE"
+    (scope || document).querySelectorAll("a").forEach((a) => {
+      if (a.textContent.trim().toLowerCase() === "click here") a.classList.add("cta-click");
+    });
     resolveAssets(scope);
     tickCountdowns();
     placeMonograms(scope);
@@ -314,6 +340,14 @@
         n.onload = n.onerror = () => res();
         document.head.appendChild(n);
       }));
+    });
+    // Khối <style> riêng trong <head> của từng trang (hero, đếm ngược, bản đồ...) cũng phải được áp dụng khi chuyển trang không tải lại
+    document.querySelectorAll("style[data-pjax]").forEach((x) => x.remove());
+    doc.querySelectorAll("head style").forEach((st) => {
+      const n = document.createElement("style");
+      n.setAttribute("data-pjax", "");
+      n.textContent = st.textContent;
+      document.head.appendChild(n);
     });
     return Promise.all(jobs);
   }

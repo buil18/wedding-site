@@ -10,6 +10,10 @@
   if (!form) return;
 
   const status = form.querySelector(".f-status");
+  // Điền sẵn tên khách nếu link có ?to=Ten (khách vẫn sửa được)
+  const nameInput = document.getElementById("rsvp-name");
+  const guest = window.SiteGuest ? window.SiteGuest() : "";
+  if (nameInput && guest && !nameInput.value) nameInput.value = guest;
   const button = form.querySelector(".f-submit");
   const endpoint = (window.SITE_CONFIG || {}).rsvpEndpoint;
 

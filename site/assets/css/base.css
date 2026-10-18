@@ -87,6 +87,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
 }
 img.el, .el.box { height: calc(var(--h) * var(--u)); object-fit: cover; }
+[data-guest][hidden] { display: none !important; }
 .el.deco { pointer-events: none; }
 .el.oval { border-radius: 50%; }
 
@@ -396,3 +397,32 @@ main.pjax-out, main.pjax-in { opacity: 0; }
   .flow-m > .map { width: calc(100% + 40px); max-width: none; height: 72vw; margin: 18px -20px 0; border: 0; }
   .flow-m > .t-script:first-child { margin-top: 30px; }
 }
+
+
+/* ---------- Nút "CLICK HERE" nổi bật: khung bo tròn mảnh, nền trắng mờ, phát sáng nhẹ ---------- */
+a.cta-click {
+  width: fit-content;
+  transform: translateX(calc((var(--w) * var(--u)) / 2 - 50%));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1 !important;
+  min-height: 0 !important;
+  margin-top: calc((var(--lh, 24) * var(--u) - 1.9em) / 2);
+  padding: .45em 1.15em .45em calc(1.15em + var(--ls, 0) * var(--u));
+  border: 1px solid rgba(127, 172, 220, .55);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .6);
+  color: #6f9fd6 !important;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  animation: cta-glow 2.4s ease-in-out infinite;
+}
+a.cta-click:hover { opacity: 1; background: #fff; animation-play-state: paused; box-shadow: 0 0 0 4px rgba(127, 172, 220, .35); }
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(127, 172, 220, 0), 0 1px 2px rgba(80, 120, 170, .06); }
+  50% { box-shadow: 0 0 0 3px rgba(127, 172, 220, .18), 0 1px 2px rgba(80, 120, 170, .06); }
+}
+@media (prefers-reduced-motion: reduce) { a.cta-click { animation: none; } }

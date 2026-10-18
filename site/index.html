@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Cormorant:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/effects/envelope.css">
+  <style>
+    /* Căn ảnh trong 3 con tem */
+    .st-a > img { object-position: 50% 25% !important; }
+    .st-b > img { object-position: 50% 22% !important; }
+    .st-d > img { object-position: 50% 30% !important; }
+    .st-c > img { object-position: 50% 100% !important; }
+  </style>
 </head>
 <body data-page="">
 <main>
@@ -26,11 +33,12 @@
            style="--x:398;--y:211;--w:421;--h:297"></a>
 
         <!-- 4 con tem (3 tem là ảnh giữ chỗ) -->
-        <div class="el box stamp stamp-ph" style="--x:566;--y:230;--w:59;--h:59;background:#c9dcc0"></div>
-        <img class="el stamp" data-img="cb0a3edd0dd2e483628374b64033568f.png" alt=""
-             style="--x:626;--y:228;--w:63;--h:63;object-fit:contain" loading="eager">
-        <div class="el box stamp stamp-ph" style="--x:689;--y:228;--w:59;--h:59;background:#28473a"></div>
-        <div class="el box stamp stamp-ph" style="--x:745;--y:224;--w:65;--h:75;background:#a9c8e6"></div>
+        <div class="el box crop stamp stamp-ph st-a" style="--x:566;--y:230;--w:59;--h:59"><img src="assets/img/own/inv-photo-2.1.jpg" alt="" style="--iw:59;--ih:59" loading="eager"></div>
+        <div class="el box crop stamp stamp-ph st-d" style="--x:626;--y:228;--w:63;--h:63"><img data-img="own-story-3.jpg" alt="" style="--iw:63;--ih:63" loading="eager"></div>
+        <div class="el box crop stamp stamp-ph st-b" style="--x:689;--y:228;--w:59;--h:59"><img data-img="own-footer-bg.jpg" alt="" style="--iw:59;--ih:59" loading="eager"></div>
+        <div class="el box crop stamp stamp-ph st-c" style="--x:745;--y:224;--w:65;--h:75"><img data-img="own-details-friday.jpg" alt="" style="--iw:65;--ih:75" loading="eager"></div>
+
+        <p class="el t t-body" data-guest hidden style="--x:418;--y:238;--w:142;--fs:13;--lh:20;--c:var(--blue)"><span class="g-lab" style="font-size:10px;letter-spacing:1.8px;text-transform:uppercase;display:block;opacity:.8">Dear</span><span class="g-name"></span></p>
 
         <p class="el t t-label nowrap" style="--x:508;--y:310;--w:206;--fs:10;--ls:1.8;--lh:16">You’re invited to the<br>wedding of</p>
         <p class="el t t-script nowrap" style="--x:430;--y:349;--w:360;--fs:47;--lh:74">Nhung and Loi</p>
