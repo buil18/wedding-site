@@ -78,18 +78,29 @@
         hp: String(fd.get("hp") || ""),
         submittedAt: new Date().toISOString(),
       };
-      // text/plain + no-cors: không bị chặn CORS, Apps Script đọc được qua e.postData.contents
-      await fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload),
-      });
+      if (!navigator.onLine) throw new Error("offline");
+      // text/plain: yêu cầu "đơn giản", không bị chặn CORS; Apps Script trả JSON {ok:true|false}
+      let res = null;
+      try {
+        res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload),
+        });
+      } catch (netErr) {
+        // Trình duyệt không cho đọc phản hồi (CORS) hoặc mạng chập chờn: không biết chắc, coi là đã gửi.
+      }
+      if (res) {
+        // Đọc được phản hồi: chỉ coi là thành công khi Apps Script trả {"ok":true}
+        let out = null;
+        try { out = await res.json(); } catch (jsonErr) {}
+        if (!res.ok || !out || out.ok !== true) throw new Error("server-rejected");
+      }
       form.reset();
       syncGuests();
       setStatus("Thank you! Your response has been received.");
     } catch (err) {
-      setStatus("Something went wrong. Please try again.", true);
+      setStatus("Sorry, we could not record your response. Please try again, or message the couple directly.", true);
     } finally {
       button.disabled = false;
     }
