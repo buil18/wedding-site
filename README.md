@@ -1,6 +1,6 @@
-# Web thiệp cưới (dựng lại từ template Canva)
 
-Site tĩnh gồm 6 trang: Home, Invitation, Welcome, Our Story, Details, RSVP.
+
+Site tĩnh gồm 4 trang: Home, Invitation, Details, RSVP.
 
 ## Chạy thử trên máy
 Chọn một trong hai cách:
