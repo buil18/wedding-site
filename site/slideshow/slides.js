@@ -126,3 +126,4 @@ window.SLIDESHOW = {
    happy    2 ảnh dọc + chữ giữa         blessing 3 ảnh: 2 nhỏ + 1 dọc cao
    ending   1 ảnh dọc (không bắt buộc)
    Muốn thêm slide: chép một dòng có sẵn, đổi số ảnh (ví dụ "51"), dán vào chỗ muốn chèn. */
+ 
