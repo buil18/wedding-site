@@ -14,7 +14,14 @@
     fail("File <code>slides.js</code> đang bị lỗi cú pháp, thường do thiếu dấu phẩy <code>,</code> cuối dòng, thiếu dấu ngoặc kép <code>\"</code> hoặc thiếu ngoặc đóng <code>]</code>.<br>Mở slides.js, xem lại đoạn vừa sửa (hoặc Ctrl+Z để quay lại bản trước).");
     return;
   }
-  window.addEventListener("error", e => fail(String(e.message || e)));
+  // chỉ báo lỗi của chính trang; bỏ qua "Script error." do trình duyệt/tivi tự sinh, và không che ảnh khi đang chiếu
+  window.addEventListener("error", e => {
+    const m = String(e.message || "");
+    if (!m || /^script error/i.test(m)) return;
+    if (e.filename && !/slides?(show)?\.js/i.test(e.filename)) return;
+    if (document.querySelector(".slide.shown")) { console.warn(m); return; }
+    fail(m);
+  });
   const W = 1920, H = 1080, FADE = 1.4;   // khớp --fade trong slideshow.css
   const MAU = /[?&]mau\b/.test(location.search);
   const $ = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };

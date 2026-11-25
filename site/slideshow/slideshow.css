@@ -158,3 +158,6 @@ body.mau .warn { color: #ffb38a; }
   background: #fff7ef; color: #5a3a24; font: 400 18px/1.6 "Montserrat", Arial, sans-serif; box-shadow: 0 10px 40px rgba(0,0,0,.4); }
 .errbox b { display: block; font-size: 22px; margin-bottom: 10px; }
 .errbox code { background: #f0e2d2; padding: 1px 6px; border-radius: 4px; }
+
+/* ảnh chụp dọc từ điện thoại: xoay theo thông tin trong ảnh */
+img { image-orientation: from-image; }
