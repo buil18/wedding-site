@@ -28,7 +28,6 @@
     g += leaf(184, 22, -38, 34, 9);
     return `<svg viewBox="0 0 220 190" ${flip ? 'style="transform:scaleX(-1)"' : ""}><path d="M12 182 C 60 140, 120 80, 190 18" fill="none" stroke="var(--leaf)" stroke-width="2.2" stroke-linecap="round"/><g fill="var(--leaf)" fill-opacity=".55" stroke="var(--leaf)" stroke-width="1.2">${g}</g></svg>`;
   }
-  const sparkle = c => `<svg viewBox="0 0 24 24"><path fill="${c || "var(--tan)"}" d="M12 0C13 8 16 11 24 12 16 13 13 16 12 24 11 16 8 13 0 12 8 11 11 8 12 0Z"/></svg>`;
   const heart = `<svg viewBox="-4 -4 648 602"><path d="M320 590 C 120 440, 0 330, 0 185 C 0 72, 88 0, 188 0 C 252 0, 300 34, 320 84 C 340 34, 388 0, 452 0 C 552 0, 640 72, 640 185 C 640 330, 520 440, 320 590 Z" fill="none" stroke="var(--blue)" stroke-width="5"/></svg>`;
   const rings = `<svg viewBox="0 0 150 100"><g fill="none" stroke="var(--tan)" stroke-width="3.2"><circle cx="56" cy="60" r="32"/><circle cx="94" cy="60" r="32"/></g><path d="M56 16 l9 10 -9 9 -9 -9z" fill="#fff" stroke="var(--blue-deep)" stroke-width="2"/></svg>`;
 
@@ -102,7 +101,6 @@
       const pol = v % 3 === 2;
       row(s, names, pol ? 150 : 110, pol ? 760 : 860, pol ? 1640 : 1720, pol ? "pol" : "frame", { stagger: pol ? 0 : (n === 2 ? 34 : 22) });
       if (v % 2) dl(el(s, "a fade deco", v % 4 === 1 ? 40 : 1680, v % 4 === 1 ? 880 : 30, 200, 172, sprig(v % 4 !== 1)), 1.6);
-      else { dl(el(s, "a zoom deco", 60, 50, 30, 30, sparkle()), 1.8); dl(el(s, "a zoom deco", 1830, 1000, 26, 26, sparkle("var(--blue)")), 2.1); }
       return;
     }
     // 4–6 ảnh: hai hàng, kiểu polaroid
@@ -152,10 +150,9 @@
     },
     thanks(s, c) {
       const [tx, tw] = sidePhoto(s, c.photo, "right");
-      dl(el(s, "a up hand", tx, 230, tw, null, c.title || "Cảm ơn", { fontSize: "210px", textAlign: "center" }), .8, 2);
-      dl(el(s, "a fade vn-names", tx, 530, tw, null, `${N.groom} &amp; ${N.bride}`, { fontSize: "78px", textAlign: "center", color: "var(--blue-deep)" }), 1.8);
-      dl(el(s, "a growX hline", tx + tw / 2 - 150, 680, 300, null), 2.4);
-      dl(el(s, "a fade para", tx, 720, tw, null, c.text || "Chúc quý vị một buổi tiệc thật vui và ấm áp", { fontSize: "42px", textAlign: "center" }), 2.8);
+      dl(el(s, "a up hand", tx, 290, tw, null, c.title || "Cảm ơn", { fontSize: "210px", textAlign: "center" }), .8, 2);
+      dl(el(s, "a growX hline", tx + tw / 2 - 150, 600, 300, null), 2);
+      dl(el(s, "a fade para", tx + 40, 650, tw - 80, null, c.text || "Sự hiện diện của quý vị<br>là món quà ý nghĩa nhất", { fontSize: "48px", textAlign: "center", lineHeight: "1.45" }), 2.5);
       dl(el(s, "a fade deco", 60, 40, 200, 172, sprig()), 2);
     },
   };
