@@ -221,16 +221,25 @@
   }
 
   /* ---------------- Tải ảnh, âm thanh ---------------- */
+  // tải lần lượt theo thứ tự chiếu (mỗi lúc 4 ảnh), ảnh lỗi/chậm thì tải lại tối đa 3 lần
   function loadPhotos(onProgress) {
     const names = new Set([C.cover]);
     C.parts.forEach(p => p.photos.forEach(it => { if (typeof it === "string") names.add(it); else if (Array.isArray(it)) it.forEach(n => names.add(n)); else if (it && it.photo) names.add(it.photo); }));
-    const list = [...names]; let count = 0;
-    return Promise.all(list.map(n => new Promise(res => {
+    const list = [...names]; let count = 0, next = 0;
+    const once = (n, tryNo) => new Promise(res => {
       const im = new Image(); let done = false;
-      const fin = ok => { if (done) return; done = true; info[n] = { ok, r: ok ? im.naturalWidth / im.naturalHeight : 1.5 }; count++; onProgress && onProgress(count / list.length); res(); };
-      im.onload = () => fin(true); im.onerror = () => fin(false); setTimeout(() => fin(false), 30000);
-      im.src = url(n);
-    })));
+      const fin = ok => { if (done) return; done = true; im.onload = im.onerror = null; res(ok ? im : null); };
+      im.onload = () => fin(true); im.onerror = () => fin(false); setTimeout(() => fin(false), 60000);
+      im.src = url(n) + (tryNo ? (url(n).includes("?") ? "&" : "?") + "r=" + tryNo : "");
+    });
+    const loadOne = async n => {
+      let im = null;
+      for (let k = 0; k < 3 && !im; k++) { im = await once(n, k); if (!im && k < 2) await new Promise(r => setTimeout(r, 1500)); }
+      info[n] = { ok: !!im, r: im ? im.naturalWidth / im.naturalHeight : 1.5 };
+      count++; onProgress && onProgress(count / list.length);
+    };
+    const worker = async () => { while (next < list.length) await loadOne(list[next++]); };
+    return Promise.all(Array.from({ length: Math.min(4, list.length) }, worker));
   }
   function loadAudio(part) {
     return new Promise(res => {
